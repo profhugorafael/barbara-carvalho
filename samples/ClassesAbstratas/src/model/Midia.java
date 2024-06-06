@@ -1,6 +1,6 @@
 package model;
 
-public abstract class Midia {
+public abstract class Midia implements Reproduzivel {
 
     protected String nome;
     protected String categoria;
@@ -28,8 +28,6 @@ public abstract class Midia {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-
-    public abstract void reproduzir();
 
     @Override
     public String toString() {
