@@ -1,5 +1,8 @@
 package model;
 
+import exception.InsuficientFundsException;
+import exception.InvalidAccountException;
+
 public class Account {
 
     private String holder;
@@ -25,33 +28,25 @@ public class Account {
         return balance;
     }
 
-//    public void setBalance(double balance) {
-//        this.balance = balance;
-//    }
-
     public void deposit(double amount) {
         balance += amount;
     }
 
-    public void withdraw(double amount) {
-        if(balance < amount){
-            System.out.println("Not enough balance");
-            return;
-        }
+    public void withdraw(double amount) throws InsuficientFundsException {
+        if(balance < amount)
+            throw new InsuficientFundsException();
 
         balance -= amount;
     }
 
-    public void transfer(double amount, Account destinationAccount) {
-        if(destinationAccount == null) {
-            System.out.println("destination account should not be null");
-            return;
-        }
+    public void transfer(double amount, Account destinationAccount)
+            throws InvalidAccountException, InsuficientFundsException
+    {
+        if(destinationAccount == null)
+            throw new InvalidAccountException();
 
-        if(balance < amount) {
-            System.out.println("Not enough balance");
-            return;
-        }
+        if(balance < amount)
+            throw new InsuficientFundsException();
 
         this.balance -= amount;
         destinationAccount.balance += amount;
