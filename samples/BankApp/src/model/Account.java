@@ -34,21 +34,29 @@ public class Account {
 
     public void withdraw(double amount) throws InsuficientFundsException {
         if(balance < amount)
-            throw new InsuficientFundsException();
+            throw new InsuficientFundsException("fail during withdraw");
 
         balance -= amount;
     }
 
     public void transfer(double amount, Account destinationAccount)
-            throws InvalidAccountException, InsuficientFundsException
-    {
+            throws InvalidAccountException, InsuficientFundsException { // aremessa...(delegar)
+
         if(destinationAccount == null)
-            throw new InvalidAccountException();
+            throw new InvalidAccountException("fail during transfer"); // aremesse (cria)
 
         if(balance < amount)
-            throw new InsuficientFundsException();
+            throw new InsuficientFundsException("fail during transfer");
 
         this.balance -= amount;
         destinationAccount.balance += amount;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "holder='" + holder + '\'' +
+                ", balance=" + balance +
+                '}';
     }
 }
